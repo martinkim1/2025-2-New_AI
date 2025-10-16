@@ -1,0 +1,15 @@
+from dotenv import load_dotenv
+from langchain_core.prompts import ChatPromptTemplate
+from langchain_openai import ChatOpenAI
+
+# .env 파일에서 환경 변수를 로드합니다.
+load_dotenv()
+
+prompt = ChatPromptTemplate.from_template("You are an expert in astronomy. Answer the question. <Question>: {input}")
+
+llm = ChatOpenAI(model="gpt-4o-mini")
+# chain 연결
+chain = prompt | llm
+# chain 호출
+response = chain.invoke({"input": "지구의 자전 주기는?"})
+print(response)
